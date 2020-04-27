@@ -19,9 +19,10 @@ import {stateKeys} from './public/shared/constants';
 import {ProductsRoutingModule} from './products/products-routing.module';
 import {PublicRoutingModule} from './public/public-routing.module';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
