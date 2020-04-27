@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "hairdresser-salon-1d12f": {
+      "hosting": {
+        "hairdresser-salon": [
+          "hairdresser-salon-1d12f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "hairdresser-salon-1d12f"
+  }
+}

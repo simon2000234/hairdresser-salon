@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav
+               mode="over"
+               [opened]="toggleOpen"
+               (closed)="toggleOpenChange.emit(false)">
+    <mat-nav-list>
+      <a mat-list-item
+         [routerLink]="['/']"
+         (click)="sidenav.close()">
+        <mat-icon matListAvatar>home</mat-icon>
+        <h3 matLine>Welcome</h3>
+        <p matLine>Go to welcome</p>
+      </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item
+         [routerLink]="['/products']"
+         (click)="sidenav.close()">
+        <mat-icon matListAvatar>store</mat-icon>
+        <h3 matLine>Products</h3>
+        <p matLine>Go to Products</p>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
