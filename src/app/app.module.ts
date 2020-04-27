@@ -36,7 +36,7 @@ import {PublicRoutingModule} from './public/public-routing.module';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-        key: [AuthState]
+      key: [AuthState]
     }),
     FormsModule
   ],
