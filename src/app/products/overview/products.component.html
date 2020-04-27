@@ -32,6 +32,11 @@
             <mat-list>
               <h1 mat-subheader>{{product.name}}</h1>
               <h3 mat-subheader>Price: {{product.price}},- DKK</h3>
+              <button mat-raised-button color="accent"
+                      aria-label="Delete Product"
+                      (click)="deleteProduct(product)">
+                <mat-icon>add</mat-icon> Delete Product
+              </button>
             </mat-list>
           </mat-card-content>
         </mat-card>

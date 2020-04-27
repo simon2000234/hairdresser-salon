@@ -40,6 +40,6 @@ export class ProductsComponent implements OnInit {
   }
 
   gotToAdd() {
-    this.store.dispatch(new Navigate([routingConstants.products + routingConstants.slash + routingConstants.create]));
+    this.store.dispatch(new Navigate([routingConstants.products + routingConstants.slash + routingConstants.create]))
   }
 }
