@@ -21,9 +21,7 @@ const routes: Routes =
     { path: '',
       redirectTo: '/welcome',
       pathMatch: 'full' },
-    { path: '**',
-      redirectTo: '/welcome',
-      pathMatch: 'full'  }
+  { path: 'users', loadChildren: () => import('../users/users.module').then(m => m.UsersModule) },
   ];
 
 @NgModule({
