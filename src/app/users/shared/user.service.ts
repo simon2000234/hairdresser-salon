@@ -25,7 +25,7 @@ export class UserService {
                 name: data.name,
                 email: data.email,
                 uid: docAction.payload.doc.id,
-                picUrl: 'https://i.imgur.com/YcP0tikb.jpg'
+                picUrl: data.picUrl
               };
               return user;
             }
