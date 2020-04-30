@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {UserState} from '../shared/user.state';
 import {User} from '../shared/user';
 import {GetAllUsers} from '../shared/user.action';
+import {Navigate} from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-innotech-users',
@@ -31,4 +32,7 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(new GetAllUsers());
   }
 
+  goToUpdate(uid: string) {
+    this.store.dispatch(new Navigate(['users/update/' + uid]));
+  }
 }
