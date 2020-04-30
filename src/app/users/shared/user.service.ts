@@ -25,12 +25,32 @@ export class UserService {
                 name: data.name,
                 email: data.email,
                 uid: docAction.payload.doc.id,
-                picUrl: 'https://i.imgur.com/YcP0tikb.jpg'
+                picUrl: data.picUrl
               };
               return user;
             }
             );
         })
       );
+  }
+
+  getUser(userId: string): Observable<User> {
+    const userFromDB = this.fs.doc<User>('users/' + userId);
+    return userFromDB.snapshotChanges()
+      .pipe(
+        map(returned => {
+          const userfromDB = returned.payload.data();
+          const user2return: User = {
+            uid: userfromDB.uid,
+            email: userfromDB.email,
+            name: userfromDB.name,
+            picUrl: userfromDB.picUrl
+          };
+          debugger;
+          return user2return;
+        }));
+  }
+  updateUser(newUser: User): Promise<any> {
+    return this.fs.doc('users/' + newUser.uid).set(newUser);
   }
 }
