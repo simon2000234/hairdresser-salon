@@ -17,7 +17,7 @@ export class UserStateModel {
   }
 })
 @Injectable()
-export class UserState  implements  NgxsOnInit {
+export class UserState {
   constructor(private userService: UserService) {
   }
 
@@ -39,10 +39,6 @@ export class UserState  implements  NgxsOnInit {
           });
         })
       );
-  }
-
-  ngxsOnInit(ctx?: StateContext<any>): void | any {
-    return undefined;
   }
 }
 
