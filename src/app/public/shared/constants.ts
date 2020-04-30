@@ -1,7 +1,8 @@
 export const firestoreConstants = {
   // Firestore
   products: 'products',
-  topProducts: 'top-products'
+  topProducts: 'top-products',
+  users: 'users'
 };
 
 export const routingConstants = {
