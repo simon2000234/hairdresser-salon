@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ShoppingChartRoutingModule } from './shopping-chart-routing.module';
-import { ShoppingChartComponent } from './shopping-chart.component';
+import { ShoppingChartComponent } from './overview/shopping-chart.component';
 
 
 @NgModule({
