@@ -1,12 +1,11 @@
 import {User} from './user';
 import {UserService} from './user.service';
-import {GetAllUsers, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
+import {GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
 import {Action, Actions, NgxsOnInit, ofActionSuccessful, Selector, State, StateContext, Store} from '@ngxs/store';
-import {first, takeUntil, tap} from 'rxjs/operators';
+import {takeUntil, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {RouterDataResolved} from '@ngxs/router-plugin';
-import {GetProductCount} from '../../products/shared/product.action';
 
 export class UserStateModel {
   users: User[];
