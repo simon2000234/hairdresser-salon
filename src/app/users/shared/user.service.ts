@@ -25,7 +25,8 @@ export class UserService {
                 name: data.name,
                 email: data.email,
                 uid: docAction.payload.doc.id,
-                picUrl: data.picUrl
+                picUrl: data.picUrl,
+                isAdmin: data.isAdmin
               };
               return user;
             }
@@ -44,7 +45,8 @@ export class UserService {
             uid: userfromDB.uid,
             email: userfromDB.email,
             name: userfromDB.name,
-            picUrl: userfromDB.picUrl
+            picUrl: userfromDB.picUrl,
+            isAdmin: userfromDB.isAdmin
           };
           debugger;
           return user2return;
