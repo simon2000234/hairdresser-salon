@@ -18,3 +18,15 @@ export class GetUser {
 
   constructor(public id: string) {}
 }
+
+export class StarStreamUsers {
+  static readonly type = '[Users] StartStreamUsers';
+
+  constructor() {}
+}
+
+export class StopStreamUsers {
+  static readonly type = '[Users] StopStreamUsers';
+
+  constructor() {}
+}

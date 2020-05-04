@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.store.dispatch(new GetAllUsers());
   }
 
   goToUpdate(uid: string) {
