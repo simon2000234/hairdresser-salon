@@ -48,7 +48,6 @@ export class UserService {
             picUrl: userfromDB.picUrl,
             isAdmin: userfromDB.isAdmin
           };
-          debugger;
           return user2return;
         }));
   }

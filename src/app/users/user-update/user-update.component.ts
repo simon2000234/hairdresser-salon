@@ -36,7 +36,8 @@ export class UserUpdateComponent implements OnInit {
       name: this.user.name,
       email: this.user.email,
       uid: this.user.uid,
-      picUrl: this.userForm.value.picUrl
+      picUrl: this.userForm.value.picUrl,
+      isAdmin: this.user.isAdmin
     };
     this.store.dispatch(new UpdateUser(updatedUser));
     this.store.dispatch(new Navigate(['users']));
