@@ -21,6 +21,15 @@
         <p matLine>Go to Products</p>
       </a>
     </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item
+         [routerLink]="['/users']"
+         (click)="sidenav.close()">
+        <mat-icon matListAvatar>face</mat-icon>
+        <h3 matLine>Users</h3>
+        <p matLine>Go To Users</p>
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>

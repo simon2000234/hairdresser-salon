@@ -24,7 +24,8 @@ const routes: Routes =
   { path: 'chart', loadChildren: () => import('../shopping-chart/shopping-chart.module').then(m => m.ShoppingChartModule) },
     { path: '**',
       redirectTo: '/welcome',
-      pathMatch: 'full'  }
+      pathMatch: 'full'  },
+  { path: 'users', canActivate: [AdminGuard], loadChildren: () => import('../users/users.module').then(m => m.UsersModule) },
   ];
 
 @NgModule({

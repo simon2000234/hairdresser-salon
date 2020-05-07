@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ProductState} from '../shared/product.state';
 import {Product} from '../shared/product';
-import {DeleteProduct} from '../shared/product.action';
+import {DeleteProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -37,6 +37,14 @@ export class ProductsComponent implements OnInit {
 
   goToDetails(product: Product) {
 
+  }
+
+  NextPage() {
+    this.store.dispatch(new StartStreamingNextPage());
+  }
+
+  PrevPage() {
+    this.store.dispatch(new StartStreamingPrevPage());
   }
 
   gotToAdd() {

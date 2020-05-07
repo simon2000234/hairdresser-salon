@@ -1,0 +1,32 @@
+<div class="main-component"
+     fxLayout="column"
+     fxLayoutGap="2em">
+  <div [fxFlexOrder]="2">
+    <div fxLayout="row wrap"
+         fxLayoutGap="4em grid">
+      <div [fxFlex]="cardWidth"
+           [fxFlex.sm]="cardWidth * 2"
+           [fxFlex.xs]="cardWidth * 2"
+           *ngFor="let user of users$ | async ">
+        <mat-card matRipple
+                  class="pointer-card">
+          <img mat-card-image
+               [@simpleFadeAnimation]="'in'"
+               [src]="user.picUrl"
+               alt="Photo of {{user.name}}">
+          <mat-card-content class="last-child">
+            <mat-list>
+              <h1 mat-subheader>{{user.name}}</h1>
+              <h3 mat-subheader>Email: {{user.email}}</h3>
+              <button mat-raised-button color="accent"
+                      aria-label="Update Profile Pic"
+                      (click)="goToUpdate(user.uid)">
+                <mat-icon>build</mat-icon> Update Profile Pic
+              </button>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
