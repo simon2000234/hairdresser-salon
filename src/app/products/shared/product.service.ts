@@ -50,6 +50,7 @@ export class ProductService {
         .pipe(
           map(documentsChangeActions => {
             this.firstDocResponse = documentsChangeActions[0].payload.doc;
+            console.log(documentsChangeActions[0].payload.doc.id);
             this.lastDocResponse = documentsChangeActions[documentsChangeActions.length - 1].payload.doc;
             this.prevStartAt = [];
             this.pageClickCount = 0;
@@ -57,6 +58,7 @@ export class ProductService {
             console.log('started streaming products');
 
             this.AddPrevStartAt(this.firstDocResponse);
+            console.log(this.firstDocResponse.id);
             return this.mapDocChangeAction(documentsChangeActions);
             }
           )
@@ -91,10 +93,9 @@ export class ProductService {
 
           if (this.pageClickCount + 1 < (this.productCount / this.perPageLimit)) {
             this.pageClickCount++;
+            this.AddPrevStartAt(this.firstDocResponse);
           }
           console.log( this.pageClickCount + 'of' + this.productCount / this.perPageLimit);
-
-          this.AddPrevStartAt(this.firstDocResponse);
 
           return this.mapDocChangeAction(documentChangeActions);
         })
@@ -116,10 +117,8 @@ export class ProductService {
 
           if (this.pageClickCount > 0) {
             this.pageClickCount--;
+            this.RemovePrevStartAt(this.firstDocResponse);
           }
-
-          // this.RemovePrevStartAt(this.firstDocResponse);
-
           return this.mapDocChangeAction(documentChangeActions);
         })
       );
@@ -138,12 +137,24 @@ export class ProductService {
   }
 
   AddPrevStartAt(prevStart: any) {
-    this.prevStartAt.push(prevStart);
+    let alreadyExists = false;
+    this.prevStartAt.forEach(item => {
+      if (prevStart.data() === item.data()) {
+       alreadyExists = true;
+      }
+    });
+
+    if (alreadyExists === false) {
+      this.prevStartAt.push(prevStart);
+      console.log('hello this was added ' + prevStart.data());
+    }
+
   }
 
   RemovePrevStartAt(prevStart: any) {
     this.prevStartAt.forEach(item => {
-      if (prevStart.doc.data().id === item.data().id) {
+      console.log(prevStart.data().id);
+      if (prevStart.data().id === item.data().id) {
         item = null;
       }
     });

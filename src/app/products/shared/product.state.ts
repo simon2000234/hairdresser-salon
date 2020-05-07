@@ -17,12 +17,14 @@ import {routingConstants, stateKeys} from '../../public/shared/constants';
 
 export class ProductStateModel {
   products: Product[];
+  totalPages: number;
 }
 
 @State<ProductStateModel>({
   name: stateKeys.products,
   defaults: {
-    products: []
+    products: [],
+    totalPages: undefined,
   }
 })
 @Injectable()
