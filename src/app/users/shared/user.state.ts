@@ -1,8 +1,8 @@
 import {User} from './user';
 import {UserService} from './user.service';
-import {GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
+import {GetAllUsers, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
 import {Action, Actions, NgxsOnInit, ofActionSuccessful, Selector, State, StateContext, Store} from '@ngxs/store';
-import {takeUntil, tap} from 'rxjs/operators';
+import {first, takeUntil, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {RouterDataResolved} from '@ngxs/router-plugin';
@@ -20,7 +20,7 @@ export class UserStateModel {
   }
 })
 @Injectable()
-export class UserState implements NgxsOnInit{
+export class UserState implements NgxsOnInit {
   private stopSteamUsers$: Subject<any>;
   urlsForUsersStream = ['/users'];
 
@@ -53,7 +53,7 @@ export class UserState implements NgxsOnInit{
       );
   }
 
-  /*@Action(GetAllUsers) husk at delete action hvis det her ikke bliver brugt
+  @Action(GetAllUsers)
   getAllUsers({getState, setState}: StateContext<UserStateModel>) {
     const state = getState();
     return this.userService
@@ -66,7 +66,7 @@ export class UserState implements NgxsOnInit{
           });
         })
       );
-  }*/
+  }
 
   @Action(UpdateUser)
   updateUser({getState, setState, dispatch}: StateContext<UserStateModel>, action: UpdateUser) {

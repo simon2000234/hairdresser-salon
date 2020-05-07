@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Select, Store} from '@ngxs/store';
 import {UserState} from '../shared/user.state';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {User} from '../shared/user';
 import {GetUser, UpdateUser} from '../shared/user.action';
 import {FormBuilder} from '@angular/forms';
@@ -13,9 +13,10 @@ import {Navigate} from '@ngxs/router-plugin';
   templateUrl: './user-update.component.html',
   styleUrls: ['./user-update.component.scss']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserUpdateComponent implements OnInit, OnDestroy {
   id;
   user: User;
+  sub: Subscription;
   userForm = this.fb.group({
     picUrl: ['']
   });
@@ -28,7 +29,7 @@ export class UserUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.store.dispatch(new GetUser(this.id));
-    this.user$.subscribe(user => this.user = user);
+    this.sub = this.user$.subscribe(user => this.user = user);
   }
 
   update() {
@@ -41,5 +42,9 @@ export class UserUpdateComponent implements OnInit {
     };
     this.store.dispatch(new UpdateUser(updatedUser));
     this.store.dispatch(new Navigate(['users']));
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
