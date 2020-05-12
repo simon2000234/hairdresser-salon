@@ -26,7 +26,8 @@ export class UserService {
                 email: data.email,
                 uid: docAction.payload.doc.id,
                 picUrl: data.picUrl,
-                isAdmin: data.isAdmin
+                isAdmin: data.isAdmin,
+                cartId: data.cartId
               };
               return user;
             }
@@ -46,7 +47,8 @@ export class UserService {
             email: userfromDB.email,
             name: userfromDB.name,
             picUrl: userfromDB.picUrl,
-            isAdmin: userfromDB.isAdmin
+            isAdmin: userfromDB.isAdmin,
+            cartId: userfromDB.cartId
           };
           return user2return;
         }));

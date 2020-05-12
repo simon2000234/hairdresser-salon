@@ -4,4 +4,5 @@ export interface User {
   uid: string;
   picUrl?: string;
   isAdmin: boolean;
+  cartId: string;
 }

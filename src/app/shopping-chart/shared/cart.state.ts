@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {GetCart} from './cart.action';
 import {tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
+import {log} from 'util';
 
 
 export class CartStateModel {
@@ -28,11 +29,11 @@ export class CartState {
 
   @Action(GetCart)
   getCart({getState, setState}: StateContext<CartStateModel>, action: GetCart) {
-    console.log('hallo');
     const state = getState();
     return this.cartService
       .getCart(action.id).pipe(
         tap(cart => {
+          console.log(cart.productInCart);
           setState({
             ...state,
             userCart: cart
