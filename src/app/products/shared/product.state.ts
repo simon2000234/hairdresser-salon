@@ -51,7 +51,7 @@ export class ProductState implements NgxsOnInit {
     return this.productService
       .createProduct(action.product)
       .pipe(
-        tap(product => {
+        tap(() => {
           dispatch(new Navigate([routingConstants.products]));
         })
       );
@@ -73,7 +73,7 @@ export class ProductState implements NgxsOnInit {
   }
 
   @Action(GetAllProducts)
-  getAllProducts({getState, setState}: StateContext<ProductStateModel>, limit: number) {
+  getAllProducts({getState, setState}: StateContext<ProductStateModel>) {
     const state = getState();
     return this.productService
       .getProducts().pipe(

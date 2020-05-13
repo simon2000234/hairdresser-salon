@@ -140,6 +140,3 @@ export class UserState implements NgxsOnInit {
     return undefined;
   }
 }
-
-
-

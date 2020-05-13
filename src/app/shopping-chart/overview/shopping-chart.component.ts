@@ -3,14 +3,10 @@ import {Select, Store} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {CartState} from '../shared/cart.state';
 import {Cart} from '../shared/cart';
-import {GetCart} from '../shared/cart.action';
-import {AuthState} from '../../auth/shared/auth.state';
-import {AuthUser} from '../../auth/shared/auth-user';
+import {GetCart, GetProductsInCart} from '../shared/cart.action';
 import {UserState} from '../../users/shared/user.state';
 import {User} from '../../users/shared/user';
-import {GetCurrentUser, GetUser} from '../../users/shared/user.action';
-import {Product} from '../../products/shared/product';
-import {ProductState} from '../../products/shared/product.state';
+import {GetCurrentUser} from '../../users/shared/user.action';
 
 @Component({
   selector: 'app-innotech-shopping-chart',
@@ -19,10 +15,8 @@ import {ProductState} from '../../products/shared/product.state';
 })
 export class ShoppingChartComponent implements OnInit, OnDestroy {
 
-  cart: Cart;
-  user: User;
-  product: Product;
-  subC: Subscription;
+  subU: Subscription;
+  subPC: Subscription;
 
   constructor(private store: Store) { }
   @Select(UserState.currentUser)
@@ -32,16 +26,22 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
   cart$: Observable<Cart>;
 
   ngOnInit(): void {
-    this.subC = this.user$.subscribe(u => {
+    this.subU = this.user$.subscribe(u => {
       if (u) {
         this.store.dispatch(new GetCart(u.cartId));
       }
     });
     this.store.dispatch(new GetCurrentUser());
+    this.subPC = this.cart$.subscribe(c => {
+      if (c) {
+        this.store.dispatch(new GetProductsInCart());
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    this.subC.unsubscribe();
+    this.subU.unsubscribe();
+    this.subPC.unsubscribe();
   }
 
 }
