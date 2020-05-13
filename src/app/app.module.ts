@@ -24,7 +24,6 @@ import {UserState} from './users/shared/user.state';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     PublicModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -38,7 +37,8 @@ import {UserState} from './users/shared/user.state';
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
       key: [AuthState]
-    })
+    }),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
