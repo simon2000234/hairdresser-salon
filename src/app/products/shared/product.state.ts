@@ -9,20 +9,15 @@ import {
   GetAllProducts, GetProductCount,
   StartStreamingNextPage, StartStreamingPrevPage,
   StartStreamProducts, StopStreamNextProducts, StopStreamPrevProducts,
-  StopStreamProducts,
-  UpdateProduct
+  StopStreamProducts
 } from './product.action';
 import {Subject} from 'rxjs';
 import {Navigate, RouterDataResolved} from '@ngxs/router-plugin';
 import {routingConstants, stateKeys} from '../../public/shared/constants';
-import {UserStateModel} from '../../users/shared/user.state';
-import {UpdateUser} from '../../users/shared/user.action';
-
 
 export class ProductStateModel {
   products: Product[];
   totalPages: number;
-  product2Update: Product;
 }
 
 @State<ProductStateModel>({
@@ -30,7 +25,6 @@ export class ProductStateModel {
   defaults: {
     products: [],
     totalPages: undefined,
-    product2Update: undefined,
   }
 })
 @Injectable()
@@ -52,17 +46,6 @@ export class ProductState implements NgxsOnInit {
   @Selector()
   static products(state: ProductStateModel) {
     return state.products;
-  }
-
-  @Selector()
-  static product2Update(state: ProductStateModel) {
-    return state.product2Update;
-  }
-
-  @Action(UpdateProduct)
-  updateProduct({getState, setState, dispatch}: StateContext<UserStateModel>, action: UpdateProduct) {
-    return this.productService
-      .updateProduct(action.product);
   }
 
   @Action(CreateProduct)
@@ -180,8 +163,8 @@ export class ProductState implements NgxsOnInit {
     return this.productService
       .getProductCount().subscribe( stream => {
         this.store.dispatch(new StartStreamProducts());
-});
-}
+      });
+  }
 
   ngxsOnInit(ctx?: StateContext<any>): void | any {
     this.actions.pipe(
