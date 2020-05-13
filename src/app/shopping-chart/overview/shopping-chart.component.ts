@@ -8,7 +8,9 @@ import {AuthState} from '../../auth/shared/auth.state';
 import {AuthUser} from '../../auth/shared/auth-user';
 import {UserState} from '../../users/shared/user.state';
 import {User} from '../../users/shared/user';
-import {GetUser} from '../../users/shared/user.action';
+import {GetCurrentUser, GetUser} from '../../users/shared/user.action';
+import {Product} from '../../products/shared/product';
+import {ProductState} from '../../products/shared/product.state';
 
 @Component({
   selector: 'app-innotech-shopping-chart',
@@ -18,32 +20,28 @@ import {GetUser} from '../../users/shared/user.action';
 export class ShoppingChartComponent implements OnInit, OnDestroy {
 
   cart: Cart;
-  authUser: AuthUser;
   user: User;
-  subA: Subscription;
+  product: Product;
   subC: Subscription;
-  subU: Subscription;
+
   constructor(private store: Store) { }
-  @Select(AuthState.loggedInUser)
-  userAuth$: Observable<AuthUser>;
+  @Select(UserState.currentUser)
+  user$: Observable<User>;
 
   @Select(CartState.userCart)
   cart$: Observable<Cart>;
 
-  @Select(UserState.user2update)
-  user$: Observable<User>;
   ngOnInit(): void {
-    this.subA = this.userAuth$.subscribe(AUser => this.authUser = AUser);
-    this.store.dispatch(new GetUser(this.authUser.uid));
-    this.subU = this.user$.subscribe(u => this.user = u);
-    this.store.dispatch(new GetCart(this.user.cartId));
-    this.subC = this.cart$.subscribe(cart => this.cart = cart);
-    console.log(this.cart.productInCart);
+    this.subC = this.user$.subscribe(u => {
+      if (u) {
+        this.store.dispatch(new GetCart(u.cartId));
+      }
+    });
+    this.store.dispatch(new GetCurrentUser());
   }
 
   ngOnDestroy(): void {
     this.subC.unsubscribe();
-    this.subA.unsubscribe();
   }
 
 }

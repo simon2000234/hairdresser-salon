@@ -1,10 +1,11 @@
 import {Cart} from './cart';
-import {Action, Selector, State, StateContext} from '@ngxs/store';
+import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {GetCart} from './cart.action';
-import {tap} from 'rxjs/operators';
+import {first, mergeMap, switchMap, take, tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
-import {log} from 'util';
+import {UserState} from '../../users/shared/user.state';
+import {GetCurrentUser} from '../../users/shared/user.action';
 
 
 export class CartStateModel {
@@ -20,7 +21,8 @@ export class CartStateModel {
 })
 @Injectable()
 export class CartState {
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,
+              private store: Store) {}
 
   @Selector()
   static userCart(state: CartStateModel) {
@@ -28,19 +30,18 @@ export class CartState {
   }
 
   @Action(GetCart)
-  getCart({getState, setState}: StateContext<CartStateModel>, action: GetCart) {
+  getCart({getState, setState, dispatch}: StateContext<CartStateModel>, action: GetCart) {
     const state = getState();
     return this.cartService
       .getCart(action.id).pipe(
+        first(),
         tap(cart => {
-          console.log(cart.productInCart);
           setState({
             ...state,
             userCart: cart
           });
         })
       );
-
   }
 }
 

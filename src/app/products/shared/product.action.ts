@@ -28,6 +28,13 @@ export class GetProductCount {
   constructor() {}
 }
 
+export class GetProduct {
+  static readonly type = '[Products] GetProduct';
+
+  constructor(public id: string) {
+  }
+}
+
 // Stop Stream of previous Products page
 export class StopStreamPrevProducts {
   static readonly type = '[Products] StopStreamPrevProducts';

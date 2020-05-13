@@ -6,7 +6,7 @@ import {ProductService} from './product.service';
 import {
   CreateProduct,
   DeleteProduct,
-  GetAllProducts, GetProductCount,
+  GetAllProducts, GetProduct, GetProductCount,
   StartStreamingNextPage, StartStreamingPrevPage,
   StartStreamProducts, StopStreamNextProducts, StopStreamPrevProducts,
   StopStreamProducts
@@ -18,6 +18,7 @@ import {routingConstants, stateKeys} from '../../public/shared/constants';
 export class ProductStateModel {
   products: Product[];
   totalPages: number;
+  product: Product;
 }
 
 @State<ProductStateModel>({
@@ -25,14 +26,11 @@ export class ProductStateModel {
   defaults: {
     products: [],
     totalPages: undefined,
+    product: undefined
   }
 })
 @Injectable()
 export class ProductState implements NgxsOnInit {
-
-  firstDocResponse: any = [];
-  lastDocResponse: any = [];
-
   private stopSteamProducts$: Subject<any>;
   private stopSteamNextProducts$: Subject<any>;
   private stopSteamPrevProducts$: Subject<any>;
@@ -55,6 +53,21 @@ export class ProductState implements NgxsOnInit {
       .pipe(
         tap(product => {
           dispatch(new Navigate([routingConstants.products]));
+        })
+      );
+  }
+
+  @Action(GetProduct)
+  getProduct({getState, setState}: StateContext<ProductStateModel>, action: GetProduct) {
+    const state = getState();
+    return this.productService
+      .getProduct(action.id).pipe(
+        first(),
+        tap(theProduct => {
+          setState({
+            ...state,
+            product: theProduct
+          });
         })
       );
   }

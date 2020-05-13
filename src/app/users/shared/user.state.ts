@@ -1,22 +1,25 @@
 import {User} from './user';
 import {UserService} from './user.service';
-import {GetAllUsers, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
+import {GetAllUsers, GetCurrentUser, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
 import {Action, Actions, NgxsOnInit, ofActionSuccessful, Selector, State, StateContext, Store} from '@ngxs/store';
-import {first, takeUntil, tap} from 'rxjs/operators';
+import {first, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {RouterDataResolved} from '@ngxs/router-plugin';
+import {AuthState} from '../../auth/shared/auth.state';
 
 export class UserStateModel {
   users: User[];
   user2Update: User;
+  currentUser: User;
 }
 
 @State<UserStateModel>({
   name: 'users',
   defaults: {
     user2Update: undefined,
-    users: []
+    users: [],
+    currentUser: undefined
   }
 })
 @Injectable()
@@ -39,6 +42,11 @@ export class UserState implements NgxsOnInit {
     return state.user2Update;
   }
 
+  @Selector()
+  static currentUser(state: UserStateModel) {
+    return state.currentUser;
+  }
+
   @Action(GetUser)
   getUser({getState, setState}: StateContext<UserStateModel>, action: GetUser) {
     const state = getState();
@@ -51,6 +59,23 @@ export class UserState implements NgxsOnInit {
           });
         })
       );
+  }
+
+  @Action(GetCurrentUser)
+  getCurrentUser({getState, setState}: StateContext<UserStateModel>) {
+    const state = getState();
+    return this.store.select(AuthState.loggedInUser)
+      .pipe(first(), switchMap(u => {
+      return this.userService
+        .getUser(u.uid).pipe(
+        tap(user => {
+          setState({
+            ...state,
+            currentUser: user
+          });
+        })
+      );
+    }));
   }
 
   @Action(GetAllUsers)
