@@ -4,6 +4,7 @@ import {Product} from './product';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {firestoreConstants, routingConstants} from '../../public/shared/constants';
+import {User} from '../../users/shared/user';
 
 @Injectable({
   providedIn: 'root'
@@ -178,5 +179,8 @@ export class ProductService {
       };
       return prod;
     });
+  }
+  updateProduct(newProduct: Product): Promise<any> {
+    return this.fs.doc('products/' + newProduct.uId).set(newProduct);
   }
 }

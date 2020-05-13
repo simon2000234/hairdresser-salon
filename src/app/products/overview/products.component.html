@@ -44,6 +44,12 @@
                       (click)="deleteProduct(product)">
                 <mat-icon>add</mat-icon> Delete Product
               </button>
+
+              <button mat-raised-button color="accent"
+                      aria-label="Update  Product"
+                      (click)="goToUpdate(product.uId)">
+                <mat-icon>build</mat-icon> Update  Product
+              </button>
             </mat-list>
           </mat-card-content>
         </mat-card>
