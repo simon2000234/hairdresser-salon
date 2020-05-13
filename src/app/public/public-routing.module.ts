@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminGuard} from '../auth/guard/admin.guard';
 import {routingConstants} from './shared/constants';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes =
   [
@@ -29,7 +30,8 @@ const routes: Routes =
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+    ],
   exports: [RouterModule]
 })
 export class PublicRoutingModule { }
