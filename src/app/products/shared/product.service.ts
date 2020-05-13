@@ -4,6 +4,7 @@ import {Product} from './product';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {firestoreConstants, routingConstants} from '../../public/shared/constants';
+import {User} from '../../users/shared/user';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,21 @@ export class ProductService {
         return product;
       })
     );
+  }
+
+  getProduct(id: string): Observable<Product> {
+    const productFromDB = this.fs.doc<Product>('products/' + id);
+    return productFromDB.snapshotChanges()
+      .pipe(
+        map(returned => {
+          const data = returned.payload.data();
+          const product2Return: Product = {
+            name: data.name,
+            price: data.price,
+            url: data.url
+          };
+          return product2Return;
+        }));
   }
 
   getProducts(): Observable<Product[]> {

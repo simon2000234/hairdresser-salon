@@ -18,14 +18,15 @@ const routes: Routes =
       loadChildren: () =>
         import('../auth/auth.module')
           .then(m => m.AuthModule) },
+    { path: 'users', canActivate: [AdminGuard], loadChildren: () => import('../users/users.module').then(m => m.UsersModule) },
     { path: '',
       redirectTo: '/welcome',
       pathMatch: 'full' },
-  { path: 'chart', loadChildren: () => import('../shopping-chart/shopping-chart.module').then(m => m.ShoppingChartModule) },
+    { path: 'cart', canActivate: [AdminGuard],
+      loadChildren: () => import('../shopping-chart/shopping-chart.module').then(m => m.ShoppingChartModule) },
     { path: '**',
       redirectTo: '/welcome',
-      pathMatch: 'full'  },
-  { path: 'users', canActivate: [AdminGuard], loadChildren: () => import('../users/users.module').then(m => m.UsersModule) },
+      pathMatch: 'full'  }
   ];
 
 @NgModule({

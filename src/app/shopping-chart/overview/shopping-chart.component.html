@@ -1,1 +1,3 @@
-<p>shopping-chart works!</p>
+<div *ngIf="cart$ | async; let cart">
+  <p *ngFor="let productcart of cart?.productInCart">{{productcart.amount}} {{productcart.productRef}}</p>
+</div>

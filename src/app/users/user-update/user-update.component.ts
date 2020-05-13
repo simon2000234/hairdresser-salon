@@ -38,7 +38,8 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
       email: this.user.email,
       uid: this.user.uid,
       picUrl: this.userForm.value.picUrl,
-      isAdmin: this.user.isAdmin
+      isAdmin: this.user.isAdmin,
+      cartId: this.user.cartId
     };
     this.store.dispatch(new UpdateUser(updatedUser));
     this.store.dispatch(new Navigate(['users']));
