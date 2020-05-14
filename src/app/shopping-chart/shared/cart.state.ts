@@ -1,7 +1,7 @@
 import {Cart} from './cart';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {GetCart, GetProductsInCart} from './cart.action';
+import {AddProductToCart, GetCart, GetProductsInCart} from './cart.action';
 import {first, tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
 import {Product} from '../../products/shared/product';
@@ -24,7 +24,8 @@ export class CartStateModel {
 @Injectable()
 export class CartState {
   constructor(private cartService: CartService,
-              private productService: ProductService) {}
+              private productService: ProductService,
+              private store: Store) {}
 
 
   @Selector()
@@ -34,6 +35,10 @@ export class CartState {
   @Selector()
   static productsInCart(state: CartStateModel) {
     return state.productsInCart;
+  }
+
+  @Action(AddProductToCart)
+  addProductToCar({getState, setState}: StateContext<CartStateModel>, action: AddProductToCart) {
   }
 
 

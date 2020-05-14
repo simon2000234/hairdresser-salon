@@ -7,6 +7,7 @@ import {DeleteProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {AddProductToCart} from '../../shopping-chart/shared/cart.action';
 
 @Component({
   selector: 'app-products',
@@ -37,6 +38,10 @@ export class ProductsComponent implements OnInit {
 
   goToDetails(product: Product) {
 
+  }
+
+  addToCart(prod: Product) {
+    this.store.dispatch(new AddProductToCart(prod.uId));
   }
 
   NextPage() {
