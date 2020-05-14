@@ -56,6 +56,10 @@ export class ProductState implements NgxsOnInit {
   static product2Update(state: ProductStateModel) {
     return state.product2Update;
   }
+  @Selector()
+  static product(state: ProductStateModel) {
+    return state.product;
+  }
 
   @Action(UpdateProduct)
   updateProduct({getState, setState, dispatch}: StateContext<UserStateModel>, action: UpdateProduct) {

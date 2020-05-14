@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from '../shared/product';
 import {Observable, Subscription} from 'rxjs';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Select, Store} from '@ngxs/store';
 import {ProductState} from '../shared/product.state';
@@ -17,15 +17,15 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   id;
   product: Product;
   sub: Subscription;
-  productForm: FormGroup = new FormGroup({
-    picUrl: new FormControl(''),
-    price: new FormControl(''),
-    name: new FormControl(''),
+  productForm = this.fb.group({
+    picUrl: [''],
+    price: [] ,
+    name: [''],
   });
   constructor(private route: ActivatedRoute,
               private store: Store,
-  ) {}
-  @Select(ProductState.product2Update)
+              private fb: FormBuilder) {}
+  @Select(ProductState.product)
   products$: Observable<Product>;
 
   ngOnInit(): void {
