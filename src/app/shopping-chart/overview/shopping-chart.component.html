@@ -1,3 +1,27 @@
-<div *ngIf="cart$ | async; let cart">
-  <p *ngFor="let productcart of cart?.productInCart">{{productcart.amount}} {{productcart.productRef}}</p>
+<div class="main-component"
+     fxLayout="column"
+     fxLayoutGap="2em">
+  <div [fxFlexOrder]="2">
+    <div fxLayout="row wrap"
+         fxLayoutGap="4em grid">
+      <div [fxFlex]="cardWidth"
+           [fxFlex.sm]="cardWidth * 2"
+           [fxFlex.xs]="cardWidth * 2"
+           *ngFor="let prod of productsInCart$ | async">
+        <mat-card matRipple
+                  class="pointer-card">
+          <img mat-card-image
+               [@simpleFadeAnimation]="'in'"
+               [src]="prod.url"
+               alt="Photo of {{prod.name}}">
+          <mat-card-content class="last-child">
+            <mat-list>
+              <h1 mat-subheader>{{prod.name}}</h1>
+              <h3 mat-subheader>Price: {{prod.price}}</h3>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>
