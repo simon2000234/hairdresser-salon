@@ -56,6 +56,7 @@ export class CartState {
     for (let i = state1.userCart.productInCart.length - 1; i >= 0; i--) {
       arrayOfIds.push(state1.userCart.productInCart[i].productRef);
     }
+
     return this.productService.getProductsInCart(arrayOfIds)
       .pipe(first(),
         tap(pInCart => {

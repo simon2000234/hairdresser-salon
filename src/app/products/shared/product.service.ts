@@ -45,7 +45,6 @@ export class ProductService {
   }
 
   getProductsInCart(productIds: string[]): Observable<Product[]> {
-    productIds.reverse();
     return this.fs.collection<Product>(firestoreConstants.products, ref => ref
       .where(firebase.firestore.FieldPath.documentId(), 'in', productIds))
       .snapshotChanges()
