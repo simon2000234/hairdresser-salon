@@ -7,6 +7,7 @@ import {GetCart, GetProductsInCart} from '../shared/cart.action';
 import {UserState} from '../../users/shared/user.state';
 import {User} from '../../users/shared/user';
 import {GetCurrentUser} from '../../users/shared/user.action';
+import {Product} from '../../products/shared/product';
 
 @Component({
   selector: 'app-innotech-shopping-chart',
@@ -17,13 +18,17 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
 
   subU: Subscription;
   subPC: Subscription;
-
+  limit = 4;
+  cardWidth = 100 / this.limit;
   constructor(private store: Store) { }
   @Select(UserState.currentUser)
   user$: Observable<User>;
 
   @Select(CartState.userCart)
   cart$: Observable<Cart>;
+
+  @Select(CartState.productsInCart)
+  productsInCart$: Observable<Product[]>;
 
   ngOnInit(): void {
     this.subU = this.user$.subscribe(u => {

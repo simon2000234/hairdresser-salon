@@ -3,7 +3,6 @@ import {map} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Cart} from './cart';
 import {Injectable} from '@angular/core';
-import {log} from 'util';
 
 
 @Injectable({
