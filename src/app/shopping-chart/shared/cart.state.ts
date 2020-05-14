@@ -50,27 +50,20 @@ export class CartState {
 
   @Action(GetProductsInCart)
   getProductsInCart({getState, setState}: StateContext<CartStateModel>) {
-    return this.store.select(CartState.userCart)
-      .pipe(first(), switchMap(c => {
-        for (let i = 0; c.productInCart.length > i; i++) {
-          const state = getState();
-          const array = state.productsInCart;
-          this.productService
-            .getProduct(c.productInCart[i].productRef)
-            .pipe(
-              first(),
-              tap(prod => {
-                array.push(prod);
-                setState({
-                  ...state,
-                  productsInCart: array
-                });
-              })
-            );
-        }
-        return new Observable<any>();
-      })
+    const state1 = getState();
+    const arrayOfIds: string[] = [];
+
+    for (let i = state1.userCart.productInCart.length - 1; i >= 0; i--) {
+      arrayOfIds.push(state1.userCart.productInCart[i].productRef);
+    }
+    return this.productService.getProductsInCart(arrayOfIds)
+      .pipe(first(),
+        tap(pInCart => {
+          setState({
+            ...state1,
+            productsInCart: pInCart
+          });
+        })
       );
   }
 }
-

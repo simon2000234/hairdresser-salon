@@ -5,6 +5,8 @@ import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {firestoreConstants, routingConstants} from '../../public/shared/constants';
 import {User} from '../../users/shared/user';
+import {firestore} from 'firebase';
+import * as firebase from "firebase";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +42,19 @@ export class ProductService {
         return product;
       })
     );
+  }
+
+  getProductsInCart(productIds: string[]): Observable<Product[]> {
+    productIds.reverse();
+    return this.fs.collection<Product>(firestoreConstants.products, ref => ref
+      .where(firebase.firestore.FieldPath.documentId(), 'in', productIds))
+      .snapshotChanges()
+      .pipe(
+        map(documentChangeActions => {
+          console.log(documentChangeActions.forEach(value => value.payload.doc.id));
+          return this.mapDocChangeAction(documentChangeActions);
+        })
+      );
   }
 
   getProduct(id: string): Observable<Product> {
