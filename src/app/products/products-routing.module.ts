@@ -8,6 +8,9 @@ const routes: Routes = [
   { path: 'create',
     component: ProductCreateComponent
   },
+  { path: 'detail',
+    component: ProductCreateComponent
+  },
   { path: '',
     component: ProductsComponent
   }];

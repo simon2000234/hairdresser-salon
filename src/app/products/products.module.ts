@@ -14,10 +14,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {ProductDetailComponent} from './detail/product-detail.component';
 
 
 @NgModule({
-  declarations: [ProductsComponent, ProductCreateComponent],
+  declarations: [ProductsComponent, ProductCreateComponent,ProductDetailComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,
