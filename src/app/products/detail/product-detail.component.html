@@ -1,5 +1,9 @@
 <div *ngIf="product$| async" >
-
+  <button mat-raised-button color="accent"
+          aria-label="Products Overview"
+          (click)="gotToOverview()">
+    <mat-icon>list</mat-icon> Product Overview
+  </button>
   <div [fxFlexOrder]="2" >
     <div fxLayout="row wrap"
          fxLayoutGap="4em grid">
