@@ -6,8 +6,7 @@ import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
-import {GetCurrentUser} from '../../users/shared/user.action';
-import {GetCart} from '../../shopping-chart/shared/cart.action';
+import {ClearCurrentUser, GetCurrentUser} from '../../users/shared/user.action';
 
 export class AuthStateModel {
   loggedInUser: AuthUser;
@@ -47,6 +46,7 @@ export class AuthState {
             loggedInUser: result,
             userName: result.displayName
           });
+          ctx.dispatch(new GetCurrentUser());
         })
       );
   }
@@ -62,6 +62,7 @@ export class AuthState {
             loggedInUser: undefined,
             userName: undefined
           });
+          dispatch(new ClearCurrentUser());
           dispatch(new Navigate([routingConstants.welcome]));
         })
       );
