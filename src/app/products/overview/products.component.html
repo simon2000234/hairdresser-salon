@@ -11,6 +11,13 @@
                 (click)="gotToAdd()">
           <mat-icon>add</mat-icon> Add Product
         </button>
+        <button  mat-raised-button (click)="PrevPage()">
+          Prev
+        </button>
+        <button mat-raised-button (click)="NextPage()">
+          Next
+        </button>
+
       </mat-toolbar-row>
     </mat-toolbar>
   </div>
@@ -36,6 +43,11 @@
                       aria-label="Delete Product"
                       (click)="deleteProduct(product)">
                 <mat-icon>add</mat-icon> Delete Product
+              </button>
+              <button mat-raised-button color="accent"
+                      aria-label="Add to cart"
+                      (click)="addToCart(product)">
+                <mat-icon>add</mat-icon> Add to Cart
               </button>
             </mat-list>
           </mat-card-content>

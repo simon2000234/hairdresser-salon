@@ -7,22 +7,18 @@
       <div [fxFlex]="cardWidth"
            [fxFlex.sm]="cardWidth * 2"
            [fxFlex.xs]="cardWidth * 2"
-           *ngFor="let user of users$ | async ">
+           *ngFor="let prod of productsInCart$ | async">
         <mat-card matRipple
                   class="pointer-card">
           <img mat-card-image
                [@simpleFadeAnimation]="'in'"
-               [src]="user.picUrl"
-               alt="Photo of {{user.name}}">
+               [src]="prod.url"
+               alt="Photo of {{prod.name}}">
           <mat-card-content class="last-child">
             <mat-list>
-              <h1 mat-subheader>{{user.name}}</h1>
-              <h3 mat-subheader>Email: {{user.email}}</h3>
-              <button mat-raised-button color="accent"
-                      aria-label="Update Profile Pic"
-                      (click)="goToUpdate(user.uid)">
-                <mat-icon>build</mat-icon> Update Profile Pic
-              </button>
+              <h1 mat-subheader>{{prod.name}}</h1>
+              <h3 mat-subheader>Price: {{prod.price}}</h3>
+              <h3 mat-subheader>Amount in cart: {{getAmount(prod)}}</h3>
             </mat-list>
           </mat-card-content>
         </mat-card>

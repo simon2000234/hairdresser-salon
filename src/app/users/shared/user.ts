@@ -3,4 +3,6 @@ export interface User {
   name: string;
   uid: string;
   picUrl?: string;
+  isAdmin: boolean;
+  cartId: string;
 }

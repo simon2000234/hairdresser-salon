@@ -6,16 +6,25 @@ import { UsersComponent } from './overview/users.component';
 import {FlexModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {UserUpdateComponent} from './user-update/user-update.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatRippleModule} from '@angular/material/core';
 
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [UsersComponent, UserUpdateComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
     FlexModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRippleModule
   ]
 })
 export class UsersModule { }

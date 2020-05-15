@@ -16,19 +16,13 @@ import {NgxsRouterPluginModule} from '@ngxs/router-plugin';
 import {NgxsStoragePluginModule} from '@ngxs/storage-plugin';
 
 import {UserState} from './users/shared/user.state';
-<<<<<<< Updated upstream
 
-@NgModule({
-  declarations: [
-    AppComponent
-=======
 import {CartState} from './shopping-chart/shared/cart.state';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ,
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -38,7 +32,8 @@ import {CartState} from './shopping-chart/shared/cart.state';
     NgxsModule.forRoot([
         AuthState,
         ProductState,
-        UserState]
+        UserState,
+        CartState]
       , {developmentMode: !environment.production}),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),

@@ -7,6 +7,49 @@ export class GetAllProducts {
   constructor() {}
 }
 
+// Stream next Product page and keep listening
+export class StartStreamingNextPage {
+  static readonly type = '[Products] StartStreamingNextPage';
+
+  constructor() {}
+}
+
+// Stop Stream of next Products page
+export class StopStreamNextProducts {
+  static readonly type = '[Products] StopStreamNextProducts';
+
+  constructor() {}
+}
+
+// Get count for pagination
+export class GetProductCount {
+  static readonly type = '[Products] GetProductCount';
+
+  constructor() {}
+}
+
+export class GetProduct {
+  static readonly type = '[Products] GetProduct';
+
+  constructor(public id: string) {
+  }
+}
+
+// Stop Stream of previous Products page
+export class StopStreamPrevProducts {
+  static readonly type = '[Products] StopStreamPrevProducts';
+
+  constructor() {}
+}
+
+// Stream previous Product page and keep listening
+export class StartStreamingPrevPage {
+  static readonly  type = '[Products] StartStreamingPrevPage';
+
+  constructor() {}
+}
+
+
 // Stream Products and keep listening
 export class StartStreamProducts {
   static readonly type = '[Products] StartStreamProducts';

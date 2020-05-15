@@ -1,16 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ProductState} from '../shared/product.state';
 import {Product} from '../shared/product';
-<<<<<<< Updated upstream
-import {DeleteProduct} from '../shared/product.action';
-=======
 import {DeleteProduct, GetProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
->>>>>>> Stashed changes
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {AddProductToCart} from '../../shopping-chart/shared/cart.action';
 
 @Component({
   selector: 'app-products',
@@ -43,7 +40,19 @@ export class ProductsComponent implements OnInit {
     this.store.dispatch(new GetProduct(product.uId));
   }
 
+  addToCart(prod: Product) {
+    this.store.dispatch(new AddProductToCart(prod.uId));
+  }
+
+  NextPage() {
+    this.store.dispatch(new StartStreamingNextPage());
+  }
+
+  PrevPage() {
+    this.store.dispatch(new StartStreamingPrevPage());
+  }
+
   gotToAdd() {
-    this.store.dispatch(new Navigate([routingConstants.products + routingConstants.slash + routingConstants.create]))
+    this.store.dispatch(new Navigate([routingConstants.products + routingConstants.slash + routingConstants.create]));
   }
 }
