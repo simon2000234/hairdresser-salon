@@ -1,6 +1,7 @@
 <div class="main-component"
      fxLayout="column"
-     fxLayoutGap="2em">
+     fxLayoutGap="2em"
+     *ngIf="currentUser$ | async; let user">
   <div [fxFlexOrder]="1">
     <mat-toolbar>
       <mat-toolbar-row>
@@ -8,7 +9,8 @@
         <span style="margin-left: 10px"></span>
         <button mat-raised-button color="accent"
                 aria-label="Create Product"
-                (click)="gotToAdd()">
+                (click)="gotToAdd()"
+                *ngIf="user.isAdmin">
           <mat-icon>add</mat-icon> Add Product
         </button>
         <button  mat-raised-button (click)="PrevPage()">
@@ -21,7 +23,7 @@
       </mat-toolbar-row>
     </mat-toolbar>
   </div>
-  <div [fxFlexOrder]="2">
+  <div [fxFlexOrder]="2" >
     <div fxLayout="row wrap"
          fxLayoutGap="4em grid">
       <div [fxFlex]="cardWidth"
@@ -41,7 +43,7 @@
               <h3 mat-subheader>Price: {{product.price}},- DKK</h3>
               <button mat-raised-button color="accent"
                       aria-label="Delete Product"
-                      (click)="deleteProduct(product)">
+                      (click)="deleteProduct(product)" *ngIf="user.isAdmin">
                 <mat-icon>add</mat-icon> Delete Product
               </button>
               <button mat-raised-button color="accent"
@@ -51,7 +53,7 @@
               </button>
               <button mat-raised-button color="accent"
                       aria-label="Update  Product"
-                      (click)="goToUpdate(product.uId)">
+                      (click)="goToUpdate(product.uId)" *ngIf="user.isAdmin">
                 <mat-icon>build</mat-icon> Update  Product
               </button>
             </mat-list>

@@ -8,6 +8,8 @@ import {ProductState} from '../shared/product.state';
 import {GetProduct, UpdateProduct} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
+import {UserState} from '../../users/shared/user.state';
+import {User} from '../../users/shared/user';
 
 @Component({
   selector: 'app-innotech-product-update',
