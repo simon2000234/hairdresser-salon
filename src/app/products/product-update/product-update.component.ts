@@ -8,6 +8,7 @@ import {ProductState} from '../shared/product.state';
 import {GetProduct, UpdateProduct} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-innotech-product-update',
@@ -18,8 +19,9 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   id;
   product: Product;
   sub: Subscription;
+  fileToUpload: File;
   productForm = this.fb.group({
-    picUrl: [''],
+    pic: [''],
     price: [''] ,
     name: [''],
   });
@@ -45,13 +47,19 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   }
 
   update() {
+    firebase.storage().ref().child('productPics/' + this.fileToUpload.name)
+      .put(this.fileToUpload).then( ref => {
+      ref.ref.getDownloadURL().then(pictureUrl => {
     const updatedProduct: Product = {
       name: this.productForm.value.name,
       price: this.productForm.value.price,
-      url: this.productForm.value.picUrl,
+      url: pictureUrl,
     };
+    console.log(updatedProduct)
     this.store.dispatch(new UpdateProduct(updatedProduct, this.id));
     this.store.dispatch(new Navigate(['products']));
+      });
+    });
   }
 
   gotToOverview() {
@@ -60,5 +68,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+  UploadPic(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
 }

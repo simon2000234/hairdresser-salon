@@ -26,10 +26,11 @@
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="type product name here" formControlName="name" fxFlex="100" >
               </mat-form-field>
-              <mat-form-field fxFlexFill>
+              <div>
                 <mat-label>Url</mat-label>
-                <input matInput placeholder="Type url for image here" formControlName="picUrl" fxFlex="100">
-              </mat-form-field>
+                <input type="file"  id="file" formControlName="pic"
+                       (change)="UploadPic($event.target.files)" fxFlex="100">
+              </div>
               <mat-form-field fxFlexFill>
                 <mat-label>Price</mat-label>
                 <input type="number" matInput placeholder="Type price here" formControlName="price" fxFlex="100">
