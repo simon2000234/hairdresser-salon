@@ -1,6 +1,6 @@
 import {User} from './user';
 import {UserService} from './user.service';
-import {GetAllUsers, GetCurrentUser, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
+import {ClearCurrentUser, GetAllUsers, GetCurrentUser, GetUser, StarStreamUsers, StopStreamUsers, UpdateUser} from './user.action';
 import {Action, Actions, NgxsOnInit, ofActionSuccessful, Selector, State, StateContext, Store} from '@ngxs/store';
 import {first, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
@@ -121,6 +121,14 @@ export class UserState implements NgxsOnInit {
       this.stopSteamUsers$.complete();
       this.stopSteamUsers$ = null;
     }
+  }
+
+  @Action(ClearCurrentUser)
+  clearCurrentUser({setState, getState}: StateContext<UserStateModel>) {
+    setState({
+      ...getState(),
+      currentUser: undefined
+    });
   }
 
   ngxsOnInit(ctx?: StateContext<any>): void | any {

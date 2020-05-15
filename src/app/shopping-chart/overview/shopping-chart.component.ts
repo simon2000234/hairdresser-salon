@@ -39,7 +39,6 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
         this.store.dispatch(new GetCart(u.cartId));
       }
     });
-    this.store.dispatch(new GetCurrentUser());
     this.subPC = this.cart$.subscribe(c => {
       if (c) {
         this.cart = c;

@@ -38,7 +38,7 @@ import {CartState} from './shopping-chart/shared/cart.state';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState]
+      key: [AuthState, UserState]
     }),
     FormsModule
   ],
