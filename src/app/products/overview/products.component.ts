@@ -35,9 +35,8 @@ export class ProductsComponent implements OnInit {
   deleteProduct(product: Product) {
     this.store.dispatch(new DeleteProduct(product));
   }
-
   goToDetails(product: Product) {
-    this.store.dispatch(new GetProduct(product.uId));
+    this.store.dispatch(new Navigate ([routingConstants.products + routingConstants.slash + routingConstants.detail + routingConstants.slash + product.uId]));
   }
 
   addToCart(prod: Product) {
