@@ -195,7 +195,7 @@ export class ProductService {
       return prod;
     });
   }
-  updateProduct(newProduct: Product): Promise<any> {
-    return this.fs.doc('products/' + newProduct.uId).set(newProduct);
+  updateProduct(newProduct: Product, pId: string): Promise<any> {
+    return this.fs.doc('products/' + pId).set(newProduct);
   }
 }

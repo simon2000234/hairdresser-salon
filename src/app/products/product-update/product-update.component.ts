@@ -7,6 +7,7 @@ import {Select, Store} from '@ngxs/store';
 import {ProductState} from '../shared/product.state';
 import {GetProduct, UpdateProduct} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
+import {routingConstants} from '../../public/shared/constants';
 
 @Component({
   selector: 'app-innotech-product-update',
@@ -19,7 +20,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   sub: Subscription;
   productForm = this.fb.group({
     picUrl: [''],
-    price: [] ,
+    price: [''] ,
     name: [''],
   });
   constructor(private route: ActivatedRoute,
@@ -31,18 +32,32 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.store.dispatch(new GetProduct(this.id));
-    this.sub = this.products$.subscribe(product => this.product = product);
+    this.sub = this.products$.subscribe(product => {
+      this.product = product;
+      if (product) {
+        this.productForm.patchValue({
+          picUrl: product.url,
+          price: product.price,
+          name: product.name
+        });
+      }
+    });
   }
 
   update() {
     const updatedProduct: Product = {
-      name: this.product.name,
-      price: this.product.price,
-      url: this.product.url,
+      name: this.productForm.value.name,
+      price: this.productForm.value.price,
+      url: this.productForm.value.picUrl,
     };
-    this.store.dispatch(new UpdateProduct(updatedProduct));
+    this.store.dispatch(new UpdateProduct(updatedProduct, this.id));
     this.store.dispatch(new Navigate(['products']));
   }
+
+  gotToOverview() {
+    this.store.dispatch(new Navigate([routingConstants.products]));
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

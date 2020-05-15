@@ -1,23 +1,44 @@
-<img [src]="product.url" alt="Photo of {{product.name}}">
-<p>{{product.name}}</p>
-<form [formGroup]="productForm" (ngSubmit)="update()">
-  <div class="form-group">
-    <label> Picture Url:</label>
-    <label>s
-      <input type="text" class="form-control" formControlName="picUrl" placeholder= "{{product.url}}" >
-    </label>
-
-    <label> Name:</label>
-    <label>
-      <input type="text" class="form-control" formControlName="name" placeholder="{{product.name}}">
-    </label>
-
-    <label> Price:</label>
-      <label>
-      <input type= "number" class="form-control" formControlName="price" placeholder="{{product.price}}">
-    </label>
+<div class="main-component"
+     fxLayout="column"
+     fxLayoutGap="2em">
+  <div [fxFlexOrder]="1">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <h1>
+          Update existing Product
+        </h1>
+        <span style="margin-left: 10px"></span>
+        <button mat-raised-button color="accent"
+                aria-label="Products Overview"
+                (click)="gotToOverview()">
+          <mat-icon>list</mat-icon> Product Overview
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
   </div>
-  <div class="form-group">
-    <button class="button" type="submit">Save</button>
+  <div [fxFlexOrder]="2" *ngIf="product">
+    <div fxLayout="row">
+      <div fxFlex="60" fxLayout="column" fxFlexOffset="20" fxLayoutGap="2em">
+        <div>
+          <form [formGroup]="productForm">
+            <mat-card fxLayout="column wrap" fxLayoutGap="1em">
+              <mat-form-field fxFlexFill>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="type product name here" formControlName="name" fxFlex="100" >
+              </mat-form-field>
+              <mat-form-field fxFlexFill>
+                <mat-label>Url</mat-label>
+                <input matInput placeholder="Type url for image here" formControlName="picUrl" fxFlex="100">
+              </mat-form-field>
+              <mat-form-field fxFlexFill>
+                <mat-label>Price</mat-label>
+                <input type="number" matInput placeholder="Type price here" formControlName="price" fxFlex="100">
+              </mat-form-field>
+              <button mat-raised-button (click)="update()">Save Changes</button>
+            </mat-card>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
+</div>

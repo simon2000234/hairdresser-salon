@@ -23,7 +23,7 @@ export class GetProduct {
 export class UpdateProduct {
   static readonly type = '[Products] UpdateProduct';
 
-  constructor(public product: Product) {}
+  constructor(public product: Product, public pId: string) {}
 }
 
 // Stop Stream of next Products page
