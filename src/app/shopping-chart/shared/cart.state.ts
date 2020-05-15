@@ -2,10 +2,11 @@ import {Cart} from './cart';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {AddProductToCart, GetCart, GetProductsInCart} from './cart.action';
-import {first, tap} from 'rxjs/operators';
+import {first, switchMap, tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
 import {Product} from '../../products/shared/product';
 import {ProductService} from '../../products/shared/product.service';
+import {UserState} from '../../users/shared/user.state';
 
 
 export class CartStateModel {
@@ -39,6 +40,10 @@ export class CartState {
 
   @Action(AddProductToCart)
   addProductToCar({getState, setState}: StateContext<CartStateModel>, action: AddProductToCart) {
+    return this.store.select(UserState.currentUser)
+      .pipe(first(), switchMap(u => {
+        return this.cartService.addProductToCart(action.prodId, u.uid);
+      }));
   }
 
 

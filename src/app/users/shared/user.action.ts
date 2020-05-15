@@ -36,3 +36,10 @@ export class StopStreamUsers {
 
   constructor() {}
 }
+
+export class ClearCurrentUser {
+  static readonly type = '[Users] ClearCurrentUser';
+
+  constructor() {}
+
+}
