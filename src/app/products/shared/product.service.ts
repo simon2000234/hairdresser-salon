@@ -209,4 +209,7 @@ export class ProductService {
       return prod;
     });
   }
+  updateProduct(newProduct: Product, pId: string): Promise<any> {
+    return this.fs.doc('products/' + pId).set(newProduct);
+  }
 }

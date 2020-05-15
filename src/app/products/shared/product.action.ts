@@ -1,9 +1,9 @@
 import {Product} from './product';
+import {User} from '../../users/shared/user';
 
 // Get Products 1 time and stop listening
 export class GetAllProducts {
   static readonly type = '[Products] GetAllProducts';
-
   constructor() {}
 }
 
@@ -12,6 +12,18 @@ export class StartStreamingNextPage {
   static readonly type = '[Products] StartStreamingNextPage';
 
   constructor() {}
+}
+
+export class GetProduct {
+  static readonly  type = '[Products} GetProduct';
+
+  constructor(public id: string) {}
+}
+
+export class UpdateProduct {
+  static readonly type = '[Products] UpdateProduct';
+
+  constructor(public product: Product, public pId: string) {}
 }
 
 // Stop Stream of next Products page
@@ -28,12 +40,6 @@ export class GetProductCount {
   constructor() {}
 }
 
-export class GetProduct {
-  static readonly type = '[Products] GetProduct';
-
-  constructor(public id: string) {
-  }
-}
 
 // Stop Stream of previous Products page
 export class StopStreamPrevProducts {

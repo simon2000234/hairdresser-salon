@@ -14,14 +14,16 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {ProductUpdateComponent} from './product-update/product-update.component';
 
 
 @NgModule({
-  declarations: [ProductsComponent, ProductCreateComponent],
+  declarations: [ProductsComponent, ProductCreateComponent,  ProductUpdateComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,

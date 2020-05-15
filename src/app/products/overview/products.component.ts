@@ -55,4 +55,7 @@ export class ProductsComponent implements OnInit {
   gotToAdd() {
     this.store.dispatch(new Navigate([routingConstants.products + routingConstants.slash + routingConstants.create]));
   }
+  goToUpdate(uid: string) {
+    this.store.dispatch(new Navigate(['products/update/' + uid]));
+  }
 }
