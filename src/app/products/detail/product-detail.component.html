@@ -1,5 +1,26 @@
-<img [src]="product.url" alt="Photo of {{product.name}}">
-<p>{{product.uId}}</p>
-    <div class="form-group">
-    <button class="button" type="submit">GoBack</button>
+<div *ngIf="product$| async" >
+
+  <div [fxFlexOrder]="2" >
+    <div fxLayout="row wrap"
+         fxLayoutGap="4em grid">
+      <div [fxFlex]="cardWidth"
+           [fxFlex.sm]="cardWidth * 2"
+           [fxFlex.xs]="cardWidth * 2">
+        <mat-card matRipple
+          class="pointer-card">
+          <img mat-card-image
+               [@simpleFadeAnimation]="'in'"
+               [src]="product.url"
+               alt="Photo of {{product.name}}">
+          <mat-card-content class="last-child">
+            <mat-list>
+              <h1 mat-subheader>{{product.name}}</h1>
+              <h3 mat-subheader>Price: {{product.price}},- DKK</h3>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
+
+</div>
