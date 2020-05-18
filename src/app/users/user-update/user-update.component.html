@@ -1,6 +1,6 @@
 <img [src]="user.picUrl" alt="Photo of {{user.name}}">
 <p>{{user.name}}</p>
-<p style="color:red" >{{errorMessage}}</p>
+<p style="color:#ff0000" >{{errorMessage}}</p>
 <form [formGroup]="userForm" (ngSubmit)="update()">
   <div class="form-group">
     <label for="file">Profile Picture Upload:</label>
