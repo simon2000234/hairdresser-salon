@@ -1,9 +1,10 @@
 <img [src]="user.picUrl" alt="Photo of {{user.name}}">
 <p>{{user.name}}</p>
+<p style="color:#ff0000" >{{errorMessage}}</p>
 <form [formGroup]="userForm" (ngSubmit)="update()">
   <div class="form-group">
     <label for="file">Profile Picture Upload:</label>
-      <input type="file" id="file" class="form-control" formControlName="pic"
+      <input accept="image/vnd.sealedmedia.softseal.jpg, image/png, image/gif, image/jpeg" type="file" id="file" class="form-control" formControlName="pic"
              (change)="UploadProfilePic($event.target.files)">
   </div>
   <div class="form-group">

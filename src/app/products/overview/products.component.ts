@@ -3,11 +3,13 @@ import {Select, Store} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {ProductState} from '../shared/product.state';
 import {Product} from '../shared/product';
-import {DeleteProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
+import {DeleteProduct, GetProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AddProductToCart} from '../../shopping-chart/shared/cart.action';
+import {UserState} from "../../users/shared/user.state";
+import {User} from "../../users/shared/user";
 
 @Component({
   selector: 'app-products',
@@ -24,6 +26,10 @@ import {AddProductToCart} from '../../shopping-chart/shared/cart.action';
   ]
 })
 export class ProductsComponent implements OnInit {
+
+  @Select(UserState.currentUser)
+  currentUser$: Observable<User>;
+
   @Select(ProductState.products)
   products$: Observable<Product[]>;
   limit = 4;
@@ -35,9 +41,8 @@ export class ProductsComponent implements OnInit {
   deleteProduct(product: Product) {
     this.store.dispatch(new DeleteProduct(product));
   }
-
   goToDetails(product: Product) {
-
+    this.store.dispatch(new Navigate ([routingConstants.products + routingConstants.slash + routingConstants.detail + routingConstants.slash + product.uId]));
   }
 
   addToCart(prod: Product) {

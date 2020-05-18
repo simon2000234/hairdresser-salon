@@ -15,10 +15,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {ProductUpdateComponent} from './product-update/product-update.component';
-
-
+import {ProductDetailComponent} from './detail/product-detail.component';
 @NgModule({
-  declarations: [ProductsComponent, ProductCreateComponent,  ProductUpdateComponent],
+  declarations: [ProductsComponent, ProductCreateComponent,  ProductUpdateComponent, ProductDetailComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,

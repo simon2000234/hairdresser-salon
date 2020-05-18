@@ -19,6 +19,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   user: User;
   sub: Subscription;
   fileToUpload: File;
+  errorMessage: string;
   userForm = this.fb.group({
     pic: ['']
   });
@@ -34,6 +35,9 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
     this.sub = this.user$.subscribe(user => this.user = user);
   }
   update() {
+    if (this.fileToUpload === undefined) {
+      return;
+    }
     firebase.storage().ref().child('profilePics/' + this.fileToUpload.name)
       .put(this.fileToUpload).then( ref => {
         ref.ref.getDownloadURL().then(url => {
@@ -56,6 +60,10 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   }
 
   UploadProfilePic(files: FileList) {
+    if (!files.item(0).type.match(/\.(jpg|jpeg|png|gif)$/)) {
+      this.errorMessage = 'We Only Accept jpg|jpeg|png|gif';
+      return;
+    }
     this.fileToUpload = files.item(0);
   }
 }
