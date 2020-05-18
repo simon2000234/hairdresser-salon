@@ -3,7 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {ProductState} from '../shared/product.state';
 import {Product} from '../shared/product';
-import {DeleteProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
+import {DeleteProduct, GetProduct, StartStreamingNextPage, StartStreamingPrevPage} from '../shared/product.action';
 import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -41,9 +41,8 @@ export class ProductsComponent implements OnInit {
   deleteProduct(product: Product) {
     this.store.dispatch(new DeleteProduct(product));
   }
-
   goToDetails(product: Product) {
-
+    this.store.dispatch(new Navigate ([routingConstants.products + routingConstants.slash + routingConstants.detail + routingConstants.slash + product.uId]));
   }
 
   addToCart(prod: Product) {

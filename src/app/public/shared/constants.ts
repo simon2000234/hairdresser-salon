@@ -13,7 +13,8 @@ export const routingConstants = {
   login: 'login',
   auth: 'auth',
   products: 'products',
-  create: 'create'
+  create: 'create',
+  detail: 'detail'
 };
 
 export const stateKeys = {
