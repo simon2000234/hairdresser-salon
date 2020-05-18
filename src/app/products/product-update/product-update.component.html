@@ -27,8 +27,9 @@
                 <input matInput placeholder="type product name here" formControlName="name" fxFlex="100" >
               </mat-form-field>
               <div>
-                <mat-label>Url</mat-label>
-                <input type="file"  id="file" formControlName="pic"
+                <mat-label>Picture</mat-label>
+                <mat-label><p style="color:#ff0000" > {{errorMessage}}</p></mat-label>
+                <input accept="image/vnd.sealedmedia.softseal.jpg, image/png, image/gif, image/jpeg" type="file"  id="file" formControlName="pic"
                        (change)="UploadPic($event.target.files)" fxFlex="100">
               </div>
               <mat-form-field fxFlexFill>

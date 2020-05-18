@@ -17,6 +17,7 @@ import * as firebase from 'firebase';
 })
 export class ProductUpdateComponent implements OnInit, OnDestroy {
   id;
+  errorMessage: string;
   product: Product;
   sub: Subscription;
   fileToUpload: File;
@@ -70,6 +71,10 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
   UploadPic(files: FileList) {
+    if (!files.item(0).type.match(/.(jpg|jpeg|png|gif)$/)) {
+      this.errorMessage = 'We Only Accept jpg|jpeg|png|gif';
+      return;
+    }
     this.fileToUpload = files.item(0);
   }
 }
