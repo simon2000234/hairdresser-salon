@@ -3,13 +3,16 @@ import {first, map} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Cart} from './cart';
 import {Injectable} from '@angular/core';
+import {Store} from '@ngxs/store';
+import {GetCart} from './cart.action';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  constructor(private fs: AngularFirestore) {
+  constructor(private fs: AngularFirestore,
+              private store: Store) {
   }
   addProductToCart(prodId: string, cartId: string) {
     const cartFromDBDoc = this.fs.doc<Cart>('shopping-carts/' + cartId);
@@ -50,7 +53,9 @@ export class CartService {
               }
             }
           });
-          return this.fs.doc<Cart>('shopping-carts/' + cartId).set(cart);
+          return this.fs.doc<Cart>('shopping-carts/' + cartId).set(cart).then(() => {
+            this.store.dispatch(new GetCart(cartId));
+          });
         }));
   }
 

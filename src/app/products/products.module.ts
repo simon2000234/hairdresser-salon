@@ -16,23 +16,25 @@ import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {ProductUpdateComponent} from './product-update/product-update.component';
 import {ProductDetailComponent} from './detail/product-detail.component';
+import {MatRippleModule} from '@angular/material/core';
 @NgModule({
   declarations: [ProductsComponent, ProductCreateComponent,  ProductUpdateComponent, ProductDetailComponent],
-  imports: [
-    CommonModule,
-    ProductsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatListModule,
-    ReactiveFormsModule,
-    FlexLayoutModule,
-    MatToolbarModule
-  ]
+    imports: [
+        CommonModule,
+        ProductsRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatListModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MatToolbarModule,
+        MatRippleModule
+    ]
 })
 export class ProductsModule { }

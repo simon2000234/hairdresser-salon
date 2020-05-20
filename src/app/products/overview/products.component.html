@@ -30,8 +30,7 @@
            [fxFlex.sm]="cardWidth * 2"
            [fxFlex.xs]="cardWidth * 2"
            *ngFor="let product of products$ | async ">
-        <mat-card (click)="goToDetails(product)"
-                  matRipple
+        <mat-card matRipple
                   class="pointer-card">
           <img mat-card-image
                [@simpleFadeAnimation]="'in'"
@@ -55,6 +54,11 @@
                       aria-label="Update  Product"
                       (click)="goToUpdate(product.uId)" *ngIf="user.isAdmin">
                 <mat-icon>build</mat-icon> Update  Product
+              </button>
+              <button mat-raised-button color="accent"
+                      aria-label="Go to Detail"
+                      (click)="goToDetails(product)">
+                <mat-icon>zoom_in</mat-icon> Go to Detail
               </button>
             </mat-list>
           </mat-card-content>
