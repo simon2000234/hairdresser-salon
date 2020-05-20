@@ -3,7 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {CartState} from '../shared/cart.state';
 import {Cart} from '../shared/cart';
-import {GetCart, GetProductsInCart, RemoveProductFromCart} from '../shared/cart.action';
+import {GetCart, GetProductsInCart, PurchaseProducts, RemoveProductFromCart} from '../shared/cart.action';
 import {UserState} from '../../users/shared/user.state';
 import {User} from '../../users/shared/user';
 import {GetCurrentUser} from '../../users/shared/user.action';
@@ -53,8 +53,16 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
   }
 
   getAmount(prod: Product): number {
-    const index = this.productsArray.indexOf(prod);
-    return this.cart.productInCart[index].amount;
+    let index;
+    if (this.cart.productInCart.length > 0){
+      this.cart.productInCart.forEach( value => {
+        if (value.productRef === prod.uId) {
+          index = this.cart.productInCart.indexOf(value);
+        }
+      });
+      return this.cart.productInCart[index].amount;
+    }
+    return 0;
   }
 
   removeProduct(Id: string) {
@@ -64,5 +72,9 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subU.unsubscribe();
     this.subPC.unsubscribe();
+  }
+
+  purchaseProdcuts() {
+    this.store.dispatch(new PurchaseProducts());
   }
 }

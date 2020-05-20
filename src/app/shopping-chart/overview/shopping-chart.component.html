@@ -1,6 +1,13 @@
+<h3 *ngIf="productsArray.length < 1">Your cart is empty</h3>
 <div class="main-component"
      fxLayout="column"
-     fxLayoutGap="2em">
+     fxLayoutGap="2em"
+      *ngIf="productsArray.length > 0">
+  <button mat-raised-button color="accent"
+          aria-label="Purchase Products"
+          (click)="purchaseProdcuts()">
+    <mat-icon>check</mat-icon> Purchase Products
+  </button>
   <div [fxFlexOrder]="2">
     <div fxLayout="row wrap"
          fxLayoutGap="4em grid">

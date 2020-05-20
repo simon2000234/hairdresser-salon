@@ -10,6 +10,12 @@ export class GetProductsInCart {
   constructor() {}
 }
 
+export class PurchaseProducts {
+  static readonly type = '[Carts] PurchaseProducts';
+
+  constructor() {}
+}
+
 export class AddProductToCart {
   static readonly type = '[Carts] AddProductToCart';
   constructor(public prodId: string) {}

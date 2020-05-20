@@ -72,6 +72,23 @@ export class CartService {
         }));
   }
 
+  purchaseProducts(cartId: string) {
+    const cartFromDBDoc = this.fs.doc<Cart>('shopping-carts/' + cartId);
+    let cart: Cart;
+    return cartFromDBDoc.snapshotChanges()
+      .pipe(
+        first(),
+        map(returned => {
+          cart = returned.payload.data() as Cart;
+
+          cart.productInCart = [];
+
+          return this.fs.doc<Cart>('shopping-carts/' + cartId).set(cart).then(() => {
+            this.store.dispatch(new GetCart(cartId));
+          });
+        }));
+  }
+
 
 }
 

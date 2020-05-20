@@ -1,7 +1,7 @@
 import {Cart} from './cart';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {AddProductToCart, GetCart, GetProductsInCart, RemoveProductFromCart} from './cart.action';
+import {AddProductToCart, GetCart, GetProductsInCart, PurchaseProducts, RemoveProductFromCart} from './cart.action';
 import {first, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
 import {Product} from '../../products/shared/product';
@@ -63,12 +63,30 @@ export class CartState {
       .getCart(action.id).pipe(
         first(),
         tap(cart => {
-          setState({
-            ...state,
-            userCart: cart
-          });
+
+          if (cart.productInCart.length > 0) {
+            setState({
+              ...state,
+              userCart: cart
+            });
+          } else {
+            setState({
+              ...state,
+              userCart: cart,
+              productsInCart: []
+            });
+          }
+
         })
       );
+  }
+
+  @Action(PurchaseProducts)
+  purchaseProducts({getState, setState}: StateContext<CartStateModel>) {
+    return this.store.select(UserState.currentUser)
+      .pipe(first(), switchMap(u => {
+        return this.cartService.purchaseProducts(u.cartId);
+      }));
   }
 
   @Action(GetProductsInCart)
@@ -80,14 +98,21 @@ export class CartState {
       arrayOfIds.push(state1.userCart.productInCart[i].productRef);
     }
 
-    return this.productService.getProductsInCart(arrayOfIds)
-      .pipe(first(),
-        tap(pInCart => {
-          setState({
-            ...state1,
-            productsInCart: pInCart
-          });
-        })
-      );
+    if (state1.userCart.productInCart.length > 0) {
+      return this.productService.getProductsInCart(arrayOfIds)
+        .pipe(first(),
+          tap(pInCart => {
+            setState({
+              ...state1,
+              productsInCart: pInCart
+            });
+          })
+        );
+    } else {
+      setState({
+        ...state1,
+        productsInCart: []
+      });
+    }
   }
 }
