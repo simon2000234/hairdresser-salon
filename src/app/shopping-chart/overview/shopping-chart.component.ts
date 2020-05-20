@@ -3,7 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {CartState} from '../shared/cart.state';
 import {Cart} from '../shared/cart';
-import {GetCart, GetProductsInCart} from '../shared/cart.action';
+import {GetCart, GetProductsInCart, RemoveProductFromCart} from '../shared/cart.action';
 import {UserState} from '../../users/shared/user.state';
 import {User} from '../../users/shared/user';
 import {GetCurrentUser} from '../../users/shared/user.action';
@@ -57,9 +57,12 @@ export class ShoppingChartComponent implements OnInit, OnDestroy {
     return this.cart.productInCart[index].amount;
   }
 
+  removeProduct(Id: string) {
+    this.store.dispatch(new RemoveProductFromCart(Id));
+  }
+
   ngOnDestroy(): void {
     this.subU.unsubscribe();
     this.subPC.unsubscribe();
   }
-
 }

@@ -14,3 +14,21 @@ export class AddProductToCart {
   static readonly type = '[Carts] AddProductToCart';
   constructor(public prodId: string) {}
 }
+
+export class RemoveProductFromCart {
+  static readonly type = '[Carts] RemoveProductFromCart';
+  constructor(public prodId: string) {
+  }
+}
+
+export class StartStreamCart {
+  static readonly type = '[Carts] StartStreamCart';
+
+  constructor(public cartId: string) {}
+}
+
+export class StopStreamCart {
+  static readonly type = '[Carts] StopStreamCart';
+
+  constructor() {}
+}

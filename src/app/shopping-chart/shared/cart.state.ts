@@ -1,12 +1,13 @@
 import {Cart} from './cart';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {AddProductToCart, GetCart, GetProductsInCart} from './cart.action';
-import {first, switchMap, tap} from 'rxjs/operators';
+import {AddProductToCart, GetCart, GetProductsInCart, RemoveProductFromCart} from './cart.action';
+import {first, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {CartService} from './cart.service';
 import {Product} from '../../products/shared/product';
 import {ProductService} from '../../products/shared/product.service';
 import {UserState} from '../../users/shared/user.state';
+
 
 
 export class CartStateModel {
@@ -24,6 +25,7 @@ export class CartStateModel {
 })
 @Injectable()
 export class CartState {
+
   constructor(private cartService: CartService,
               private productService: ProductService,
               private store: Store) {}
@@ -42,11 +44,17 @@ export class CartState {
   addProductToCar({getState, setState}: StateContext<CartStateModel>, action: AddProductToCart) {
     return this.store.select(UserState.currentUser)
       .pipe(first(), switchMap(u => {
-        return this.cartService.addProductToCart(action.prodId, u.uid);
+        return this.cartService.addProductToCart(action.prodId, u.cartId);
       }));
   }
 
-
+  @Action(RemoveProductFromCart)
+  removeProductFromCart({getState, setState}: StateContext<CartStateModel>, action: RemoveProductFromCart) {
+    return this.store.select(UserState.currentUser)
+      .pipe(first(), switchMap(u => {
+        return this.cartService.removeProductFromCart(action.prodId, u.cartId);
+      }));
+  }
 
   @Action(GetCart)
   getCart({getState, setState, dispatch}: StateContext<CartStateModel>, action: GetCart) {

@@ -20,6 +20,11 @@
               <h3 mat-subheader>Price: {{prod.price}}</h3>
               <h3 mat-subheader>Amount in cart: {{getAmount(prod)}}</h3>
             </mat-list>
+            <button mat-raised-button color="accent"
+                    aria-label="Remove  Product"
+                    (click)="removeProduct(prod.uId)">
+              <mat-icon>delete</mat-icon> Remove  Product
+            </button>
           </mat-card-content>
         </mat-card>
       </div>

@@ -100,7 +100,7 @@ export class UserState implements NgxsOnInit {
   }
 
   @Action(StarStreamUsers)
-  streamUsers({getState, setState}: StateContext<UserStateModel>, limit: number) {
+  streamUsers({getState, setState}: StateContext<UserStateModel>) {
     this.stopSteamUsers$ = new Subject<void>();
     const state = getState();
     return this.userService

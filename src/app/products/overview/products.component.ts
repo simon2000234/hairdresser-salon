@@ -8,8 +8,8 @@ import {Navigate} from '@ngxs/router-plugin';
 import {routingConstants} from '../../public/shared/constants';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AddProductToCart} from '../../shopping-chart/shared/cart.action';
-import {UserState} from "../../users/shared/user.state";
-import {User} from "../../users/shared/user";
+import {UserState} from '../../users/shared/user.state';
+import {User} from '../../users/shared/user';
 
 @Component({
   selector: 'app-products',
