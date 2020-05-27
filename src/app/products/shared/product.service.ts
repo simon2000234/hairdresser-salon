@@ -18,7 +18,7 @@ export class ProductService {
   prevStartAt: any = [];
   pageClickCount = 0;
   productCount = 0;
-  perPageLimit = 5;
+  perPageLimit = 4;
 
   constructor(private fs: AngularFirestore) { }
   createProduct(product: Product): Observable<Product> {
